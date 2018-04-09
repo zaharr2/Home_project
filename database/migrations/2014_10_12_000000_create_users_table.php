@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->integer('baned')->default(0);
             $table->string('sex')->nullable();
             $table->string('name')->nullable();
-            $table->string('nickname', 30);
+            $table->string('nickname', 30)->nullable();
             $table->string('second_name')->nullable();
             $table->string('email')->unique();
             $table->string('skype')->nullable();
