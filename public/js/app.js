@@ -47782,7 +47782,7 @@ exports = module.exports = __webpack_require__(46)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47832,6 +47832,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47841,7 +47846,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id: '',
                 name: '',
                 email: ''
-            }
+            },
+            url: '/api/users',
+            pagination: []
         };
     },
 
@@ -47854,10 +47861,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getUsers: function getUsers() {
             var _this = this;
 
-            axios.get('/api/users').then(function (response) {
+            var $this = this;
+            axios.get(this.url).then(function (response) {
                 console.log(response);
-                _this.users = response.data;
+                _this.users = response.data.data;
+                $this.makePagination(response.data);
             });
+        },
+        deleteUser: function deleteUser(id, index) {
+            var _this2 = this;
+
+            axios.delete('/api/users/' + id).then(function (response) {
+                console.log(response);
+                _this2.users.splice(index, 1);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        makePagination: function makePagination(data) {
+            var pagination = {
+                current_page: data.current_page,
+                last_page: data.last_page,
+                next_page_url: data.next_page_url,
+                prev_page_url: data.prev_page_url
+            };
+            this.pagination = pagination;
+        },
+        fetchPaginateUsers: function fetchPaginateUsers(url) {
+            this.url = url;
+            this.getUsers();
         }
     }
 });
@@ -47887,7 +47919,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.users, function(user) {
+        _vm._l(_vm.users, function(user, index) {
           return _c("tr", [
             _c("th", [_vm._v(_vm._s(user.id))]),
             _vm._v(" "),
@@ -47917,12 +47949,61 @@ var render = function() {
                 [_vm._v("Edit")]
               ),
               _vm._v(" "),
-              _c("a", { staticClass: "btn btn-danger", attrs: { href: "" } }, [
-                _vm._v("Delete")
-              ])
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-danger",
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.deleteUser(user.id, index)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              )
             ])
           ])
         })
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "pagination" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { disabled: !_vm.pagination.prev_page_url },
+          on: {
+            click: function($event) {
+              _vm.fetchPaginateUsers(_vm.pagination.prev_page_url)
+            }
+          }
+        },
+        [_vm._v("Previos")]
+      ),
+      _vm._v(" "),
+      _c("span", [
+        _vm._v(
+          "Page " +
+            _vm._s(_vm.pagination.current_page) +
+            " of " +
+            _vm._s(_vm.pagination.last_page)
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { disabled: !_vm.pagination.next_page_url },
+          on: {
+            click: function($event) {
+              _vm.fetchPaginateUsers(_vm.pagination.next_page_url)
+            }
+          }
+        },
+        [_vm._v("Next")]
       )
     ])
   ])
@@ -47936,21 +48017,21 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("NAME")]),
+        _c("th", [_vm._v("NAame")]),
         _vm._v(" "),
-        _c("th", [_vm._v("NICKNAME")]),
+        _c("th", [_vm._v("Nickname")]),
         _vm._v(" "),
-        _c("th", [_vm._v("SECONDNAME")]),
+        _c("th", [_vm._v("Secondname")]),
         _vm._v(" "),
-        _c("th", [_vm._v("AGE")]),
+        _c("th", [_vm._v("Age")]),
         _vm._v(" "),
-        _c("th", [_vm._v("EMAIL")]),
+        _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("SEX")]),
+        _c("th", [_vm._v("Sex")]),
         _vm._v(" "),
-        _c("th", [_vm._v("ROLE")]),
+        _c("th", [_vm._v("Role")]),
         _vm._v(" "),
-        _c("th", [_vm._v("ACTION")])
+        _c("th", [_vm._v("Action")])
       ])
     ])
   }

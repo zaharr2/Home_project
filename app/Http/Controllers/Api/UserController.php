@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy("id", "DESK")->paginate(5);
 
         return response()->json($users);
     }
@@ -100,6 +100,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->delete();
+
+        return response()->json('User deleted');
     }
 }

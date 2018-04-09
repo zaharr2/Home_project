@@ -36,7 +36,7 @@
         },
         mounted() {
             axios.get('/api/users/' + this.id).then(response => {
-                var user = response.data;
+                let user = response.data;
                 this.name = user.name;
                 this.email = user.email;
             }).catch(error => {
