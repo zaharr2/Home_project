@@ -48131,7 +48131,7 @@ exports = module.exports = __webpack_require__(46)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -48173,6 +48173,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "CreateNew",
@@ -48180,7 +48183,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            errors: []
         };
     },
 
@@ -48188,20 +48192,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addNewUser: function addNewUser() {
             var _this = this;
 
-            console.log(this.name);
-            console.log(this.email);
-            console.log(this.password);
+            this.errors = [];
             axios.post('/api/users', {
                 name: this.name,
                 email: this.email,
                 password: this.password
             }).then(function (response) {
-                console.log(response);
                 _this.name = '';
                 _this.email = '';
                 _this.password = '';
             }).catch(function (error) {
-                console.log(error);
+                if (error.response.status == 422) {
+                    _this.errors = error.response.data.errors;
+                }
             });
         }
     }
@@ -48258,7 +48261,13 @@ var render = function() {
                   _vm.name = $event.target.value
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.errors.name
+              ? _c("span", { staticClass: "error" }, [
+                  _vm._v(_vm._s(_vm.errors.name[0]))
+                ])
+              : _vm._e()
           ])
         ]),
         _vm._v(" "),
@@ -48295,7 +48304,13 @@ var render = function() {
                   _vm.email = $event.target.value
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.errors.email
+              ? _c("span", { staticClass: "error" }, [
+                  _vm._v(_vm._s(_vm.errors.email[0]))
+                ])
+              : _vm._e()
           ])
         ]),
         _vm._v(" "),
@@ -48306,7 +48321,7 @@ var render = function() {
               staticClass: "control-label col-sm-2",
               attrs: { for: "password" }
             },
-            [_vm._v("Name:")]
+            [_vm._v("Password:")]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "col-sm-10" }, [
@@ -48335,7 +48350,13 @@ var render = function() {
                   _vm.password = $event.target.value
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.errors.password
+              ? _c("span", { staticClass: "error" }, [
+                  _vm._v(_vm._s(_vm.errors.password[0]))
+                ])
+              : _vm._e()
           ])
         ]),
         _vm._v(" "),
