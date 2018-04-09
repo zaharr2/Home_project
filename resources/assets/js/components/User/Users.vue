@@ -28,7 +28,7 @@
                 <th v-if="user.role === 1">User</th>
                 <th v-else>Admin</th>
                 <th>
-                    <a href="" class="btn btn-primary">Edit</a>
+                    <a :href="'/users/' + user.id + '/edit'" class="btn btn-primary">Edit</a>
                     <a href="" class="btn btn-danger">Delete</a>
                 </th>
             </tr>
