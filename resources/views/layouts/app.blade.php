@@ -13,7 +13,10 @@
 <body>
 
 <div class="container-fluid" id="app">
-    @yield("content")
+    <navbar></navbar>
+    <div class="container">
+        @yield("content")
+    </div>
 </div>
 
 <script type="text/javascript" src="/js/app.js"></script>

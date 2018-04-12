@@ -21,6 +21,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('users', require('./components/User/Users.vue'));
 Vue.component('create-new-user', require('./components/User/CreateNew.vue'));
 Vue.component('edit-user', require('./components/User/Edit.vue'));
+Vue.component('navbar', require('./components/Common/NavBar.vue'));
 
 const app = new Vue({
     el: '#app'

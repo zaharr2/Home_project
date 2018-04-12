@@ -34,16 +34,19 @@
             </tr>
             </tbody>
         </table>
-        <div class="pagination">
-            <button class="btn btn-default" v-on:click="fetchPaginateUsers(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">Previos</button>
-            <span>Page {{ pagination.current_page }} of {{ pagination.last_page }}</span>
-            <button class="btn btn-default" v-on:click="fetchPaginateUsers(pagination.next_page_url)" :disabled="!pagination.next_page_url">Next</button>
-        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" v-bind:class="[{disabled: !pagination.prev_page_url}]"><a class="page-link" href="#" v-on:click="fetchPaginateUsers(pagination.prev_page_url)">Previous</a></li>
+                <li class="page-item disabled"><a class="page-link text-dark" href="#">Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+                <li class="page-item" v-bind:class="[{disabled: !pagination.next_page_url}]"><a class="page-link" href="#" v-on:click="fetchPaginateUsers(pagination.next_page_url)">Next</a></li>
+            </ul>
+        </nav>
     </div>
 </template>
 
 <script>
     export default {
+        name: "Users",
         data() {
             return {
                 users: [],
@@ -56,7 +59,6 @@
                 pagination: []
             }
         },
-        name: "Users",
         mounted() {
             this.getUsers();
         },
@@ -72,10 +74,8 @@
             deleteUser(id, index) {
                 axios.delete('/api/users/' + id).then(response => {
                     console.log(response);
-                    this.users.splice(index, 1);
-                }).catch(error => {
-                    console.log(error);
-                });
+                    this.getUsers();
+                }).catch(error => console.log(error))
             },
             makePagination(data) {
                 let pagination = {
