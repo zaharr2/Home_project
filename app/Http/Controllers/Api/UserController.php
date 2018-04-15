@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -15,9 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy("id", "DESK")->paginate(5);
-
-        return response()->json($users);
+//        $users = User::orderBy("id", "DESK")->paginate(5);
+//
+//        return response()->json($users);
+        return UserResource::collection(User::paginate(10));
     }
 
     /**
