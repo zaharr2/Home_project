@@ -19,12 +19,7 @@
                     <th>{{ error }}</th>
                 </tr>
                 <tr v-if="users" v-for="user in users">
-                    <!--<li v-for="user in users">-->
-                    <!--<strong>Name:</strong> {{ name }},-->
-
                     <th>{{ user.id }}</th>
-                    <!--<strong>Email:</strong> {{ email }}-->
-                    <!--</li>-->
                     <th>{{ user.name }}</th>
                     <th>{{ user.nicname }}</th>
                     <th>{{ user.second_name }}</th>
@@ -34,17 +29,16 @@
                     <th v-if="user.role === 1">User</th>
                     <th v-else>Admin</th>
                     <th>
-                        <a :href="'/users/' + user.id + '/edit'" class="btn btn-primary">Edit</a>
+                        <router-link :to="{ name: 'users.edit', params: { id: user.id }}" class="btn btn-primary">Edit</router-link>
                         <a href="" class="btn btn-danger" v-on:click="deleteUser(user.id, index)">Delete</a>
                     </th>
                 </tr>
             </tbody>
         </table>
-
-        <div class="pagination">
-            <button :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
+        <div class="pagination justify-content-center">
+            <button class="mr-2" :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
             {{ paginatonCount }}
-            <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
+            <button class="ml-2" :disabled="! nextPage" @click.prevent="goToNext">Next</button>
         </div>
     </div>
 </template>
@@ -132,6 +126,12 @@
                     this.links = links;
                     this.meta = meta;
                 }
+            },
+            deleteUser(id, index) {
+                axios.delete('/api/users/' + id).then(response => {
+                    console.log(response);
+                    this.getUsers();
+                }).catch(error => console.log(error))
             },
         }
     }
