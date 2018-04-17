@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 Route::resource('users', 'UserController');
 
 Auth::routes();

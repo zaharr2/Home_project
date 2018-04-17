@@ -18,3 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('users', 'Api\UserController');
+
+Route::namespace('Api')->group(function () {
+    Route::get('/users', 'UserController@index');
+});

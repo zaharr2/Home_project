@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="m-2">
         <h2>Users listing</h2>
-        <a href="/users/create" class="btn btn-success pull-right">Add new user</a>
+        <a href="/users/create" class="btn btn-success mb-2">Add new user</a>
         <table class="table table-bordered">
             <thead>
             <tr>
