@@ -28,6 +28,7 @@ import Hello from './views/Hello.vue';
 import Home from './views/Home.vue';
 import UsersIndex from './views/user/UsersIndex.vue';
 import UsersAdd from './views/user/CreateNew.vue';
+import UsersEdit from './views/user/Edit.vue';
 
 import VueRouter from 'vue-router';
 
@@ -36,26 +37,11 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
-        },
-        {
-            path: '/users',
-            name: 'users.index',
-            component: UsersIndex,
-        },
-        {
-            path: '/user/add',
-            name: 'users.add',
-            component: UsersAdd,
-        },
+        { path: '/',                name: 'home',           component: Home },
+        { path: '/hello',           name: 'hello',          component: Hello },
+        { path: '/users',           name: 'users.index',    component: UsersIndex },
+        { path: '/user/add',        name: 'users.add',      component: UsersAdd },
+        { path: '/user/edit/:id',   name: 'users.edit',     component: UsersEdit,       props: true },
     ],
 });
 

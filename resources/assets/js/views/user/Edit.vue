@@ -30,8 +30,7 @@
         data() {
             return {
                 name: '',
-                email: '',
-                password: ''
+                email: ''
             }
         },
         mounted() {
